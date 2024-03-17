@@ -30,6 +30,8 @@ install_packages() {
                 apt-get install copyq -y >> log/install.log ;;
             "Baobab") 
                 apt-get install baobab -y >> log/install.log ;;
+            "VLC")
+                apt-get install vlc -y >> log/install.log ;;
             "Git") 
                 install_git ;;
         esac

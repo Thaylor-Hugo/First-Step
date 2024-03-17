@@ -19,6 +19,7 @@ programing_list=(   "Git" "Version control system" "off" \
                     "STM32Cube" "CubeProgrammer, CubeMX and CubeMonitor" "off")
 
 useful_list=(   "Discord" "Communication platform" "off" \
+                "VLC" "Media player" "off" \
                 "CopyQ" "Clipboard manager" "off" \
                 "Baobab" "Disk usage analiser" "off" \
                 "GrubCustomizer" "GRUB configuration tool" "off")
