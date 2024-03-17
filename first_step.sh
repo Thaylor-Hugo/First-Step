@@ -52,6 +52,11 @@ check_cancel() {
 
 # Main script
 main() {
+    # Create the log directory and file
+    mkdir -p log
+    touch log/install.log
+    echo "" > log/install.log
+
     # Install the dependencies
     install_dep
 
@@ -66,11 +71,6 @@ main() {
     echo "Installing and configuring the selected items..."
     echo "This may take a while..."
     echo ""
-
-    # Create the log directory and file
-    mkdir -p log
-    touch log/install.log
-    echo "" > log/install.log
 
     # Install the selected items
     install_packages "${all_selected_items[@]}"
