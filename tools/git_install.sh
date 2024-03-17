@@ -9,15 +9,15 @@ get_git_info() {
 }
 
 configure_git() {
-    git config --global user.git_name "$git_name"
-    git config --global user.git_email "$git_email"
+    git config --global user.name "$git_name"
+    git config --global user.email "$git_email"
 }
 
 configure_ssh() {
-    ssh-keygen -t ed25519 -C "$git_email"
-    eval "$(ssh-agent -s)"
-    ssh-add ~/.ssh/id_ed25519
-    xclip -sel clip < ~/.ssh/id_rsa.pub
+    ssh-keygen -t ed25519 -C "$git_email" -f ~/.ssh/id_ed25519
+    eval "$(ssh-agent -s)" >> log/install.log
+    ssh-add ~/.ssh/id_ed25519 >> log/install.log
+    xclip -sel clip < ~/.ssh/id_ed25519.pub
     echo "The SSH key has been copied to the clipboard"
 }
 
