@@ -13,6 +13,7 @@ install_dep() {
     apt-get install xclip -y >> log/install.log
     apt-get install curl -y >> log/install.log
     apt-get install dialog -y >> log/install.log
+    apt-get install unzip -y >> log/install.log
 }
 
 # Define the checklist items
@@ -51,6 +52,9 @@ check_cancel() {
 
 # Main script
 main() {
+    # Install the dependencies
+    install_dep
+
     selected_programing_items=$(display_checklist "Install and Configure Programming Items" "${programing_list[@]}")
     check_cancel
     selected_useful_items=$(display_checklist "Install and Configure Useful Items" "${useful_list[@]}")
@@ -67,9 +71,6 @@ main() {
     mkdir -p log
     touch log/install.log
     echo "" > log/install.log
-
-    # Install the dependencies
-    install_dep
 
     # Install the selected items
     install_packages "${all_selected_items[@]}"
