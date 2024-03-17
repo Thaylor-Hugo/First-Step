@@ -6,6 +6,9 @@ if [ `whoami` != 'root' ]; then
     exit 1
 fi
 
+# Source the install file
+source tools/install.sh
+
 # Define the checklist items
 programing_list=(   "Git" "Version control system" "off" \
                     "Fish" "Interactive shell" "off" \
@@ -40,21 +43,29 @@ check_cancel() {
 }
 
 # Main script
-while true; do
-    
+main() {
     selected_programing_items=$(display_checklist "Install and Configure Programming Items" "${programing_list[@]}")
     check_cancel
     selected_useful_items=$(display_checklist "Install and Configure Useful Items" "${useful_list[@]}")
     check_cancel
 
-    clear
-    echo "Selected items:"
-    for item in $selected_programing_items; do
-        echo "$item"
-    done
-    for item in $selected_useful_items; do
-        echo "$item"
-    done
+    all_selected_items=($selected_programing_items $selected_useful_items)
 
-    read -p "Press Enter to continue..." input
-done
+    clear
+    echo "Installing and configuring the selected items..."
+    echo "This may take a while..."
+    echo ""
+
+    # Create the log directory and file
+    mkdir -p log
+    touch log/install.log
+    echo "" > log/install.log
+
+    # Install the selected items
+    install_packages "${all_selected_items[@]}"
+
+    read -p "Installation Done! Press Enter to leave..." input
+    exit 0
+}
+
+main
