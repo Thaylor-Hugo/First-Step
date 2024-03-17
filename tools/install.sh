@@ -1,11 +1,17 @@
 #!/bin/bash
 
+# Source the files
+source_files=(tools/git_install.sh)
+for file in "${source_files[@]}"; do
+    source $file
+done
+
 # Install packages
 # First argument is the list of packages
 install_packages() {
     local packages=("$@")
-    apt-get update >> log/install.log
-    apt-get upgrade -y >> log/install.log
+    # apt-get update >> log/install.log
+    # apt-get upgrade -y >> log/install.log
 
     for package in "${packages[@]}"; do
         echo "Installing $package..."
@@ -24,6 +30,8 @@ install_packages() {
                 apt-get install copyq -y >> log/install.log ;;
             "Baobab") 
                 apt-get install baobab -y >> log/install.log ;;
+            "Git") 
+                install_git ;;
         esac
         echo ""
     done
