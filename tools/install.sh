@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Source the files
-source_files=(tools/git_install.sh)
+source_files=("tools/git_install.sh" "tools/ros_install.sh")
 for file in "${source_files[@]}"; do
     source $file
 done
@@ -34,6 +34,8 @@ install_packages() {
                 apt-get install vlc -y >> log/install.log ;;
             "Git") 
                 install_git ;;
+            "ROS2")
+                install_ros >> log/install.log ;;
         esac
         echo ""
     done

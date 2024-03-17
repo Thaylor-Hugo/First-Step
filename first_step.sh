@@ -9,6 +9,12 @@ fi
 # Source the install file
 source tools/install.sh
 
+install_dep() {
+    apt-get install xclip -y >> log/install.log
+    apt-get install curl -y >> log/install.log
+    apt-get install dialog -y >> log/install.log
+}
+
 # Define the checklist items
 programing_list=(   "Git" "Version control system" "off" \
                     "Fish" "Interactive shell" "off" \
@@ -61,6 +67,9 @@ main() {
     mkdir -p log
     touch log/install.log
     echo "" > log/install.log
+
+    # Install the dependencies
+    install_dep
 
     # Install the selected items
     install_packages "${all_selected_items[@]}"
