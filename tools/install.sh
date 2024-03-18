@@ -35,7 +35,7 @@ install_packages() {
             "Git") 
                 install_git ;;
             "ROS2")
-                sudo install_ros >> log/install.log ;;
+                install_ros >> log/install.log ;;
             "STM32Cube")
                 install_cube ;;
             "JLink")
@@ -43,7 +43,7 @@ install_packages() {
                 sudo apt-get install ./JLink_Linux_x86_64.deb -y
                 sudo rm JLink_Linux_x86_64.deb ;;
             "Fish")
-                sudo install_fish ;;
+                install_fish ;;
         esac
     done
 }

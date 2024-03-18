@@ -14,10 +14,10 @@ source tools/install.sh
 
 # Function to install the dependencies
 install_dep() {
-    apt-get install xclip -y >> log/install.log
-    apt-get install curl -y >> log/install.log
-    apt-get install dialog -y >> log/install.log
-    apt-get install unzip -y >> log/install.log
+    sudo apt-get install xclip -y >> log/install.log
+    sudo apt-get install curl -y >> log/install.log
+    sudo apt-get install dialog -y >> log/install.log
+    sudo apt-get install unzip -y >> log/install.log
 }
 
 # Define the checklist items
@@ -66,7 +66,7 @@ create_log() {
 main() {
     create_log
     echo "Installing the dependencies..."
-    sudo install_dep
+    install_dep
 
     selected_programing_items=$(display_checklist "Install and Configure Programming Items" "${programing_list[@]}")
     check_cancel
