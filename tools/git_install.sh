@@ -22,7 +22,7 @@ configure_ssh() {
 }
 
 install_git() {
-    apt-get install git -y >> log/install.log
+    sudo apt-get install git -y >> log/install.log
     get_git_info
     echo "Configuring git..."
     configure_git

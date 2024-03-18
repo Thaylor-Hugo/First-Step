@@ -10,40 +10,40 @@ done
 # First argument is the list of packages
 install_packages() {
     local packages=("$@")
-    apt-get update >> log/install.log
-    apt-get upgrade -y >> log/install.log
+    sudo apt-get update >> log/install.log
+    sudo apt-get upgrade -y >> log/install.log
 
     for package in "${packages[@]}"; do
         echo -e "Installing $package... \n"
         case $package in
             "Make")
-                apt-get install make -y >> log/install.log ;;
+                sudo apt-get install make -y >> log/install.log ;;
             "CMake")
-                apt-get install cmake -y >> log/install.log ;; 
+                sudo apt-get install cmake -y >> log/install.log ;; 
             "VSCode")
-                snap install --classic code >> log/install.log ;;
+                sudo snap install --classic code >> log/install.log ;;
             "Discord")
-                snap install discord >> log/install.log ;;
+                sudo snap install discord >> log/install.log ;;
             "CopyQ") package_real_name="copyq"
-                add-apt-repository ppa:hluk/copyq -y >> log/install.log
-                apt-get update >> log/install.log
-                apt-get install copyq -y >> log/install.log ;;
+                sudo add-apt-repository ppa:hluk/copyq -y >> log/install.log
+                sudo apt-get update >> log/install.log
+                sudo apt-get install copyq -y >> log/install.log ;;
             "Baobab") 
-                apt-get install baobab -y >> log/install.log ;;
+                sudo apt-get install baobab -y >> log/install.log ;;
             "VLC")
-                apt-get install vlc -y >> log/install.log ;;
+                sudo apt-get install vlc -y >> log/install.log ;;
             "Git") 
                 install_git ;;
             "ROS2")
-                install_ros >> log/install.log ;;
+                sudo install_ros >> log/install.log ;;
             "STM32Cube")
                 install_cube ;;
             "JLink")
-                curl -fLO -d 'accept_license_agreement=accepted&submit=Download+software' https://www.segger.com/downloads/jlink/JLink_Linux_x86_64.deb
-                apt-get install ./JLink_Linux_x86_64.deb -y
-                rm JLink_Linux_x86_64.deb ;;
+                sudo curl -fLO -d 'accept_license_agreement=accepted&submit=Download+software' https://www.segger.com/downloads/jlink/JLink_Linux_x86_64.deb
+                sudo apt-get install ./JLink_Linux_x86_64.deb -y
+                sudo rm JLink_Linux_x86_64.deb ;;
             "Fish")
-                install_fish ;;
+                sudo install_fish ;;
         esac
     done
 }

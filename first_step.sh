@@ -1,10 +1,13 @@
 #!/bin/bash
 
 # Check if the user is root
-if [ `whoami` != 'root' ]; then
-    echo "Root privileges are required for this operation. Please re-run with sudo command."
+if [ `whoami` == 'root' ]; then
+    echo "Please re-run without sudo command."
     exit 1
 fi
+
+# Print with root for the user to enter the password only once
+sudo echo "Initiating Install and Config"
 
 # Source the install file
 source tools/install.sh
@@ -62,7 +65,8 @@ create_log() {
 # Main script
 main() {
     create_log
-    install_dep
+    echo "Installing the dependencies..."
+    sudo install_dep
 
     selected_programing_items=$(display_checklist "Install and Configure Programming Items" "${programing_list[@]}")
     check_cancel
@@ -79,8 +83,8 @@ main() {
     install_packages "${all_selected_items[@]}"
 
     # Update and upgrade the system
-    apt-get update >> log/install.log
-    apt-get upgrade -y >> log/install.log
+    sudo apt-get update >> log/install.log
+    sudo apt-get upgrade -y >> log/install.log
 
     echo "Installation Done! Please reboot to finish configuration"
     read -p "Reboot now? (y) or (n)..."
