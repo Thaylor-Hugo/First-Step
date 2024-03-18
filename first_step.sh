@@ -9,6 +9,7 @@ fi
 # Source the install file
 source tools/install.sh
 
+# Function to install the dependencies
 install_dep() {
     apt-get install xclip -y >> log/install.log
     apt-get install curl -y >> log/install.log
@@ -51,14 +52,16 @@ check_cancel() {
     fi
 }
 
-# Main script
-main() {
-    # Create the log directory and file
+# Create the log directory and file
+create_log() {
     mkdir -p log
     touch log/install.log
     echo "" > log/install.log
+}
 
-    # Install the dependencies
+# Main script
+main() {
+    create_log
     install_dep
 
     selected_programing_items=$(display_checklist "Install and Configure Programming Items" "${programing_list[@]}")
@@ -70,13 +73,20 @@ main() {
 
     clear
     echo "Installing and configuring the selected items..."
-    echo "This may take a while..."
-    echo ""
+    echo -e "This may take a while... \n"
 
     # Install the selected items
     install_packages "${all_selected_items[@]}"
 
-    read -p "Installation Done! Press Enter to leave..." input
+    # Update and upgrade the system
+    apt-get update >> log/install.log
+    apt-get upgrade -y >> log/install.log
+
+    echo "Installation Done! Please reboot to finish configuration"
+    read -p "Reboot now? (y) or (n)..."
+    if [ $REPLY = "y" ]; then
+        reboot
+    fi
     exit 0
 }
 

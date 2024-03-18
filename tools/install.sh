@@ -14,7 +14,7 @@ install_packages() {
     apt-get upgrade -y >> log/install.log
 
     for package in "${packages[@]}"; do
-        echo "Installing $package..."
+        echo -e "Installing $package... \n"
         case $package in
             "Make")
                 apt-get install make -y >> log/install.log ;;
@@ -45,6 +45,5 @@ install_packages() {
             "Fish")
                 install_fish ;;
         esac
-        echo ""
     done
 }
