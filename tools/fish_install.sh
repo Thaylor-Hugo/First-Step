@@ -4,6 +4,7 @@
 # First argument is the flag for CMake
 # Second argument is the flag for ROS2
 # Third argument is the flag for STM32Cube
+# Fourth argument is the flag for ARM-GCC
 config_fish() {
     if [ $1 -eq 1 ]; then
         echo -e "function mkbuild\n    mkdir build\n    cd build\n    cmake..\nend \n"
@@ -19,6 +20,10 @@ config_fish() {
         echo "set -gx CUBE_PATH /usr/local/STMicroelectronics/STM32Cube/STM32CubeMX/" >> ~/.config/fish/config.fish
         echo "set PATH /usr/local/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin $PATH" >> ~/.config/fish/config.fish
         echo -e "\nfunction cubemx\n    \$CUBE_PATH/STM32CubeMX \$argv\nend \n" 
+    fi
+
+    if [ $4 -eq 1 ]; then
+        echo "set PATH /usr/local/gcc-arm-none-eabi*/bin $PATH" >> ~/.config/fish/config.fish
     fi
 }
 

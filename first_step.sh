@@ -28,13 +28,13 @@ programing_list=(   "Git" "Version control system" "off" \
                     "VSCode" "Feature-rich code editor" "off" \
                     "ROS2" "Robotics framework" "off" \
                     "JLink" "JLink tools" "off" \
-                    "STM32Cube" "CubeProgrammer, CubeMX and CubeMonitor" "off")
+                    "STM32Cube" "CubeProgrammer, CubeMX and CubeMonitor" "off"
+                    "ARM-GCC" "Compiler for ARM processors." "off")
 
 useful_list=(   "Discord" "Communication platform" "off" \
                 "VLC" "Media player" "off" \
                 "CopyQ" "Clipboard manager" "off" \
-                "Baobab" "Disk usage analiser" "off" \
-                "GrubCustomizer" "GRUB configuration tool" "off")
+                "Baobab" "Disk usage analiser" "off")
 
 # Function to display the checklist
 # First argument is the title
