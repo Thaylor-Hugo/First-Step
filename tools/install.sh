@@ -12,6 +12,11 @@ install_packages() {
     local packages=("$@")
     sudo apt-get update >> log/install.log
     sudo apt-get upgrade -y >> log/install.log
+    
+    # Flags for the fish shell
+    cmake_on=0;
+    ros2_on=0;
+    stm32_on=0;
 
     for package in "${packages[@]}"; do
         echo -e "Installing $package... \n"
@@ -19,6 +24,7 @@ install_packages() {
             "Make")
                 sudo apt-get install make -y >> log/install.log ;;
             "CMake")
+                cmake_on=1;
                 sudo apt-get install cmake -y >> log/install.log ;; 
             "VSCode")
                 sudo snap install --classic code >> log/install.log ;;
@@ -35,15 +41,17 @@ install_packages() {
             "Git") 
                 install_git ;;
             "ROS2")
+                ros2_on=1;
                 install_ros >> log/install.log ;;
             "STM32Cube")
+                stm32_on=1;
                 install_cube ;;
             "JLink")
                 sudo curl -fLO -d 'accept_license_agreement=accepted&submit=Download+software' https://www.segger.com/downloads/jlink/JLink_Linux_x86_64.deb
                 sudo apt-get install ./JLink_Linux_x86_64.deb -y
                 sudo rm JLink_Linux_x86_64.deb ;;
             "Fish")
-                install_fish ;;
+                install_fish $cmake_on $ros2_on $stm32_on ;;
         esac
     done
 }
