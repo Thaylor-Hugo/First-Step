@@ -63,7 +63,9 @@ install_packages() {
                 fish_on=1 ;;
         esac
     done
+    source ~/.bashrc
     if [ $fish_on -eq 1 ]; then
         install_fish $cmake_on $ros2_on $stm32_on $arm_on
+        source ~/.config/fish/config.fish
     fi
 }
