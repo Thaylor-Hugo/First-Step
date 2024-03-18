@@ -18,6 +18,7 @@ install_packages() {
     ros2_on=0
     stm32_on=0
     arm_on=0
+    fish_on=0
 
     for package in "${packages[@]}"; do
         echo -e "Installing $package... \n"
@@ -59,7 +60,10 @@ install_packages() {
                 sudo apt-get install ./JLink_Linux_x86_64.deb -y
                 sudo rm JLink_Linux_x86_64.deb ;;
             "Fish")
-                install_fish $cmake_on $ros2_on $stm32_on ;;
+                fish_on=1 ;;
         esac
     done
+    if [ $fish_on -eq 1 ]; then
+        install_fish $cmake_on $ros2_on $stm32_on $arm_on
+    fi
 }
