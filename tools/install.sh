@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Source the files
-source_files=("tools/git_install.sh" "tools/ros_install.sh" "tools/stm_install.sh")
+source_files=("tools/git_install.sh" "tools/ros_install.sh" "tools/stm_install.sh" "tools/fish_install.sh")
 for file in "${source_files[@]}"; do
     source $file
 done
@@ -42,6 +42,8 @@ install_packages() {
                 curl -fLO -d 'accept_license_agreement=accepted&submit=Download+software' https://www.segger.com/downloads/jlink/JLink_Linux_x86_64.deb
                 apt-get install ./JLink_Linux_x86_64.deb -y
                 rm JLink_Linux_x86_64.deb ;;
+            "Fish")
+                install_fish ;;
         esac
         echo ""
     done
