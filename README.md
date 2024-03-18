@@ -10,6 +10,7 @@ First step of a new operating system. Scripts for configurating the system in ne
     * CMake
     * VSCode
     * ROS2
+    * JLink
     * [STM32Cube programs](https://www.st.com/en/development-tools/stm32-software-development-tools.html) 
 
 * Useful Packages

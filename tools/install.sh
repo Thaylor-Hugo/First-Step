@@ -38,6 +38,10 @@ install_packages() {
                 install_ros >> log/install.log ;;
             "STM32Cube")
                 install_cube ;;
+            "JLink")
+                curl -fLO -d 'accept_license_agreement=accepted&submit=Download+software' https://www.segger.com/downloads/jlink/JLink_Linux_x86_64.deb
+                apt-get install ./JLink_Linux_x86_64.deb -y
+                rm JLink_Linux_x86_64.deb ;;
         esac
         echo ""
     done

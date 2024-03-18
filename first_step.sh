@@ -23,6 +23,7 @@ programing_list=(   "Git" "Version control system" "off" \
                     "CMake" "Build system generator" "off" \
                     "VSCode" "Feature-rich code editor" "off" \
                     "ROS2" "Robotics framework" "off" \
+                    "JLink" "JLink tools" "off" \
                     "STM32Cube" "CubeProgrammer, CubeMX and CubeMonitor" "off")
 
 useful_list=(   "Discord" "Communication platform" "off" \
