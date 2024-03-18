@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Source the files
-source_files=("tools/git_install.sh" "tools/ros_install.sh")
+source_files=("tools/git_install.sh" "tools/ros_install.sh" "tools/stm_install.sh")
 for file in "${source_files[@]}"; do
     source $file
 done
@@ -10,8 +10,8 @@ done
 # First argument is the list of packages
 install_packages() {
     local packages=("$@")
-    # apt-get update >> log/install.log
-    # apt-get upgrade -y >> log/install.log
+    apt-get update >> log/install.log
+    apt-get upgrade -y >> log/install.log
 
     for package in "${packages[@]}"; do
         echo "Installing $package..."
@@ -36,6 +36,8 @@ install_packages() {
                 install_git ;;
             "ROS2")
                 install_ros >> log/install.log ;;
+            "STM32Cube")
+                install_cube ;;
         esac
         echo ""
     done

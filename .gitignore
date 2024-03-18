@@ -1,2 +1,6 @@
 # ignore all logs
 *.log
+
+# ignore all stm cube software files
+stm/
+!stm/README.md
