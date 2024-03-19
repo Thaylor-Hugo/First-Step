@@ -57,6 +57,9 @@ install_packages() {
                 fish_on=1 ;;
             "GCC")
                 sudo apt-get install gcc -y >> log/install.log ;;
+            "Charge Rules")
+                sudo mv rules/* /etc/udev/rules.d/ 
+                sudo udevadm control --reload-rules && sudo udevadm trigger ;;
         esac
     done
     source ~/.bashrc
