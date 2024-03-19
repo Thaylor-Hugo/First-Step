@@ -8,11 +8,11 @@ set_locale() {
 }
 
 enable_repos() {
-    sudo apt-get install software-properties-common -y
-    sudo yes '' | sudo add-apt-repository universe
-    sudo apt-get update
+    sudo apt-get install software-properties-common -y >> log/install.log
+    sudo yes '' | sudo add-apt-repository universe >> log/install.log
+    sudo apt-get update >> log/install.log
     sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | tee /etc/apt/sources.list.d/ros2.list > /dev/null
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
 }
 
 config_ros() {
@@ -21,11 +21,11 @@ config_ros() {
 }
 
 install_ros() {
-    set_locale
+    set_locale >> log/install.log
     enable_repos
-    sudo apt-get update 
-    sudo apt-get upgrade -y
-    sudo apt-get install ros-dev-tools -y
-    sudo apt-get install ros-iron-desktop -y
+    sudo apt-get update >> log/install.log
+    sudo apt-get upgrade -y >> log/install.log
+    sudo apt-get install ros-dev-tools -y >> log/install.log
+    sudo apt-get install ros-iron-desktop -y >> log/install.log
     config_ros
 }

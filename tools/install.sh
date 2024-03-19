@@ -43,7 +43,7 @@ install_packages() {
                 install_git ;;
             "ROS2")
                 ros2_on=1
-                install_ros >> log/install.log ;;
+                install_ros ;;
             "STM32Cube")
                 stm32_on=1
                 install_cube ;;
