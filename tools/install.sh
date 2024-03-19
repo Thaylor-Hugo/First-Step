@@ -57,7 +57,7 @@ install_packages() {
                 ;;
             "JLink")
                 sudo curl -fLO -d 'accept_license_agreement=accepted&submit=Download+software' https://www.segger.com/downloads/jlink/JLink_Linux_x86_64.deb
-                sudo apt-get install ./JLink_Linux_x86_64.deb -y
+                sudo dpkg -i ./JLink_Linux_x86_64.deb >> log/install.log
                 sudo rm JLink_Linux_x86_64.deb ;;
             "Fish")
                 fish_on=1 ;;
