@@ -17,7 +17,7 @@ install_cube_prog() {
 install_cube_mx() {
     sudo ./stm/en.stm32cubemx*/SetupSTM32CubeMX* >> log/install.log
     echo "export CUBE_PATH=/usr/local/STMicroelectronics/STM32Cube/STM32CubeMX/" >> ~/.bashrc
-    echo "cubemx() { \$CUBE_PATH/STM32CubeMX $1 }" >> ~/.bashrc
+    echo -e "cubemx() {\n    \$CUBE_PATH/STM32CubeMX \$1\n}" >> ~/.bashrc
 }
 
 install_cube_mon() {
