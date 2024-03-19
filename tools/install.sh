@@ -48,7 +48,7 @@ install_packages() {
                 stm32_on=1
                 install_cube ;;
             "ARM-GCC") 
-                sudo apt install gcc-arm-none-eabi -y >> log/install.log ;;
+                sudo apt-get install gcc-arm-none-eabi -y >> log/install.log ;;
             "JLink")
                 sudo curl -fLO -d 'accept_license_agreement=accepted&submit=Download+software' https://www.segger.com/downloads/jlink/JLink_Linux_x86_64.deb
                 sudo dpkg -i ./JLink_Linux_x86_64.deb >> log/install.log
