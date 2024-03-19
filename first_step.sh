@@ -23,6 +23,7 @@ install_dep() {
 # Define the checklist items
 programing_list=(   "Git" "Version control system" "off" \
                     "Fish" "Interactive shell" "off" \
+                    "GCC" "GNU Compiler Collection" "off" \
                     "Make" "Build tool" "off" \
                     "CMake" "Build system generator" "off" \
                     "VSCode" "Feature-rich code editor" "off" \

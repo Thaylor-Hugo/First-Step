@@ -61,6 +61,8 @@ install_packages() {
                 sudo rm JLink_Linux_x86_64.deb ;;
             "Fish")
                 fish_on=1 ;;
+            "GCC")
+                sudo apt-get install gcc -y >> log/install.log ;;
         esac
     done
     source ~/.bashrc

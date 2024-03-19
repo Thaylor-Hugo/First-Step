@@ -6,6 +6,7 @@ First step of a new operating system. Scripts for configurating the system in ne
 * Programming Packages
     * Git
     * Fish
+    * GCC
     * Make
     * CMake
     * VSCode
