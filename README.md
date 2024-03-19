@@ -22,6 +22,3 @@ First step of a new operating system. Scripts for configurating the system in ne
 
 ## STM32Cube Dependencies
 Please download the STM softwares (CubeMX, CubeProgrammer and CubeMonitor) and place them on stm folder. For more information read [stm README](stm/README.md)
-
-## ARM-GCC Dependencies
-Please download the ARM-GCC software and place it on arm folder. For more information read [arm README](arm/READDME.MD)

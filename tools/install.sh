@@ -17,7 +17,6 @@ install_packages() {
     cmake_on=0
     ros2_on=0
     stm32_on=0
-    arm_on=0
     fish_on=0
 
     for package in "${packages[@]}"; do
@@ -49,12 +48,7 @@ install_packages() {
                 stm32_on=1
                 install_cube ;;
             "ARM-GCC") 
-                arm_on=1
-                tar -xf arm/gcc-arm-none-eabi*.tar.bz2 >> log/install.log
-                sudo rm -r arm/gcc-arm-none-eabi*.tar.bz2
-                sudo mv gcc-arm-none-eabi* /usr/local/
-                echo "export PATH=$PATH:/usr/local/gcc-arm-none-eabi*/bin" >> ~/.bashrc
-                ;;
+                sudo apt install gcc-arm-none-eabi -y >> log/install.log ;;
             "JLink")
                 sudo curl -fLO -d 'accept_license_agreement=accepted&submit=Download+software' https://www.segger.com/downloads/jlink/JLink_Linux_x86_64.deb
                 sudo dpkg -i ./JLink_Linux_x86_64.deb >> log/install.log
@@ -67,7 +61,7 @@ install_packages() {
     done
     source ~/.bashrc
     if [ $fish_on -eq 1 ]; then
-        install_fish $cmake_on $ros2_on $stm32_on $arm_on
+        install_fish $cmake_on $ros2_on $stm32_on
         source ~/.config/fish/config.fish
     fi
 }

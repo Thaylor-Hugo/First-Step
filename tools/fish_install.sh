@@ -21,10 +21,6 @@ config_fish() {
         echo "set PATH /usr/local/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin $PATH" >> ~/.config/fish/config.fish
         echo -e "\nfunction cubemx\n    \$CUBE_PATH/STM32CubeMX \$argv\nend \n" 
     fi
-
-    if [ $4 -eq 1 ]; then
-        echo "set PATH /usr/local/gcc-arm-none-eabi*/bin $PATH" >> ~/.config/fish/config.fish
-    fi
 }
 
 # Install fish shell
