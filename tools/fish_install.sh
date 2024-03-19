@@ -13,12 +13,12 @@ config_fish() {
 
     if [ $2 -eq 1 ]; then
         #TODO: install omf and bass
-        echo -e "bass source /opt/ros/iron/setup.bash \n" >> ~/.config/fish/config.fish
+        echo -e "bass source /opt/ros/iron/setup.bash \n"
     fi
 
     if [ $3 -eq 1 ]; then
-        echo "set -gx CUBE_PATH /usr/local/STMicroelectronics/STM32Cube/STM32CubeMX/" >> ~/.config/fish/config.fish
-        echo "set PATH /usr/local/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin $PATH" >> ~/.config/fish/config.fish
+        echo "set -gx CUBE_PATH /usr/local/STMicroelectronics/STM32Cube/STM32CubeMX/"
+        echo "set PATH /usr/local/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin \$PATH"
         echo -e "\nfunction cubemx\n    \$CUBE_PATH/STM32CubeMX \$argv\nend \n" 
     fi
 }
@@ -30,7 +30,8 @@ config_fish() {
 install_fish() {
     sudo apt-get install fish -y >> log/install.log
     sudo chsh -s $(which fish) >> log/install.log
-    config_fish $1 $2 $3
+    config_fish $1 $2 $3 > config/config.fish
+    mv -f config/config.fish ~/.config/fish/
     # yes | curl -L https://get.oh-my.fish | fish >> log/install.log
     # omf install bass >> log/install.log
 }
