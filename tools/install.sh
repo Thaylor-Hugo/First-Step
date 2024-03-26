@@ -30,7 +30,9 @@ install_packages() {
             "VSCode")
                 sudo snap install --classic code >> log/install.log ;;
             "Discord")
-                sudo snap install discord >> log/install.log ;;
+                sudo wget -q "https://discord.com/api/download?platform=linux&format=deb" -O discord.deb
+                sudo apt-get install ./discord.deb -y >> log/install.log
+                sudo rm discord.deb ;;
             "CopyQ") package_real_name="copyq"
                 sudo add-apt-repository ppa:hluk/copyq -y >> log/install.log
                 sudo apt-get update >> log/install.log
