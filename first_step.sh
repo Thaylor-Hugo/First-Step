@@ -12,40 +12,64 @@ sudo echo "Initiating Install and Config"
 # Source the install file
 source tools/install.sh
 
+install_gum() {
+    sudo mkdir -p /etc/apt/keyrings
+    curl -fsSL https://repo.charm.sh/apt/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/charm.gpg
+    echo "deb [signed-by=/etc/apt/keyrings/charm.gpg] https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list
+    sudo apt-get update && sudo apt-get install gum -y
+}
+
 # Function to install the dependencies
 install_dep() {
     sudo apt-get install xclip -y >> log/install.log
     sudo apt-get install curl -y >> log/install.log
-    sudo apt-get install dialog -y >> log/install.log
     sudo apt-get install unzip -y >> log/install.log
+    install_gum >> log/install.log
 }
 
 # Define the checklist items
-programing_list=(   "Git" "Version control system" "off" \
-                    "Fish" "Interactive shell" "off" \
-                    "GCC" "GNU Compiler Collection" "off" \
-                    "Make" "Build tool" "off" \
-                    "CMake" "Build system generator" "off" \
-                    "VSCode" "Feature-rich code editor" "off" \
-                    "ROS2" "Robotics framework" "off" \
-                    "JLink" "JLink tools" "off" \
-                    "STM32Cube" "CubeProgrammer, CubeMX and CubeMonitor" "off"
-                    "ARM-GCC" "Compiler for ARM processors." "off")
+programing_list=(   "Git - Version control system" \
+                    "Fish - Interactive shell" \
+                    "GCC - GNU Compiler Collection" \
+                    "Make - Build tool" \
+                    "CMake - Build system generator" \
+                    "VSCode - Feature-rich code editor" \
+                    "ROS2 - Robotics framework" \
+                    "JLink - JLink tools" \
+                    "STM32Cube - CubeProgrammer, CubeMX and CubeMonitor" \
+                    "ARM-GCC - Compiler for ARM processors")
 
-useful_list=(   "Discord" "Communication platform" "off" \
-                "VLC" "Media player" "off" \
-                "CopyQ" "Clipboard manager" "off" \
-                "CopyQ" "Clipboard manager" "off" \
-                "Charge Rules" "Auto change power profile" "off")
+useful_list=(   "Discord - Communication platform" \
+                "VLC - Media player" \
+                "CopyQ - Clipboard manager" \
+                "Baobab - Disk usage analiser" \
+                "Charge Rules - Auto change power profile")
 
 # Function to display the checklist
-# First argument is the title
-# Second argument is the list of items
 display_checklist() {
-    local title=$1
-    shift
-    local items=("$@")
-    dialog --clear --checklist "$title" 0 0 ${#items[@]} "${items[@]}" 2>&1 >/dev/tty
+    # Display the checklist for programming items
+    clear
+    gum style \
+        --foreground 212 --border-foreground 212 --border double \
+        --align center --width 50 --margin "1 2" --padding "2 4" \
+        "Install and Configure Programming Items" 'Choose the items you would like!'
+    local selected_programing_items=$(gum choose --no-limit "${programing_list[@]}")
+    check_cancel
+
+    # Display the checklist for useful items
+    clear    
+    gum style \
+        --foreground 212 --border-foreground 212 --border double \
+        --align center --width 50 --margin "1 2" --padding "2 4" \
+        "Install and Configure Useful Items" 'Choose the items you would like!'
+    local selected_useful_items=$(gum choose --no-limit "${useful_list[@]}")
+    check_cancel
+
+    local IFS=$'\n'
+    selected_programing_items=($selected_programing_items)
+    selected_useful_items=($selected_useful_items)
+
+    choices=("${selected_programing_items[@]}" "${selected_useful_items[@]}")
 }
 
 # Function to check if the user canceled the operation
@@ -70,19 +94,14 @@ main() {
     echo "Installing the dependencies..."
     install_dep
 
-    selected_programing_items=$(display_checklist "Install and Configure Programming Items" "${programing_list[@]}")
-    check_cancel
-    selected_useful_items=$(display_checklist "Install and Configure Useful Items" "${useful_list[@]}")
-    check_cancel
-
-    all_selected_items=($selected_programing_items $selected_useful_items)
+    display_checklist
 
     clear
     echo "Installing and configuring the selected items..."
     echo -e "This may take a while... \n"
 
     # Install the selected items
-    install_packages "${all_selected_items[@]}"
+    install_packages "${choices[@]}"
 
     # Update and upgrade the system
     sudo apt-get update >> log/install.log
