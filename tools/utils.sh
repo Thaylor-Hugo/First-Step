@@ -10,6 +10,10 @@ install_gum() {
 
 # Function to install the dependencies
 install_dep() {
+    if [[ -z $(which curl) ]]; then 
+        echo "Installing curl..."
+        $gum_spin "$title" -- sudo apt-get install curl -y >> log/install.log
+    fi
     if [[ -z $(which gum) ]]; then
         echo "Installing gum..."
         install_gum >> log/install.log
@@ -20,9 +24,6 @@ install_dep() {
     
     if [[ -z $(which xclip) ]]; then 
         $gum_spin "$title" -- sudo apt-get install xclip -y >> log/install.log
-    fi
-    if [[ -z $(which curl) ]]; then 
-        $gum_spin "$title" -- sudo apt-get install curl -y >> log/install.log
     fi
     if [[ -z $(which unzip) ]]; then 
         $gum_spin "$title" -- sudo apt-get install unzip -y >> log/install.log
