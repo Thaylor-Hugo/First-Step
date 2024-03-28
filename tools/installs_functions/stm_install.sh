@@ -3,7 +3,7 @@
 unzip_cube() {
     for cube_prog in stm/en.stm32cube*.zip; do
         $gum_spin "$title" -- unzip $cube_prog -d ${cube_prog%".zip"}
-        rm -r $cube_prog
+        sudo rm -rf $cube_prog
     done
 }
 
@@ -13,7 +13,7 @@ install_cube_prog() {
     $gum_spin "$title" -- sudo apt-get install libusb-1.0-0-dev -y >> log/install.log
     $gum_spin "$title" -- sudo cp /usr/local/STMicroelectronics/STM32Cube/STM32CubeProgrammer/Drivers/rules/*.* /etc/udev/rules.d
     echo "export PATH=\$PATH:/usr/local/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin" >> ~/.bashrc
-    rm -r ./stm/en.stm32cubeprg*
+    sudo rm -rf ./stm/en.stm32cubeprg*
 }
 
 install_cube_mx() {
@@ -21,7 +21,7 @@ install_cube_mx() {
     $gum_spin "$title" -- sudo ./stm/en.stm32cubemx*/SetupSTM32CubeMX* >> log/install.log
     echo "export CUBE_PATH=/usr/local/STMicroelectronics/STM32Cube/STM32CubeMX/" >> ~/.bashrc
     echo -e "cubemx() {\n    \$CUBE_PATH/STM32CubeMX \$1 &> /dev/null &\n}" >> ~/.bashrc
-    rm -r ./stm/en.stm32cubemx*
+    sudo rm -rf ./stm/en.stm32cubemx*
 }
 
 install_cube_mon() {
