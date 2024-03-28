@@ -18,8 +18,8 @@ enable_repos() {
 }
 
 config_ros() {
-    $gum_spin "$title" -- echo "source /opt/ros/iron/setup.bash" >> ~/.bashrc
-    $gum_spin "$title" -- source ~/.bashrc
+    echo "source /opt/ros/iron/setup.bash" >> ~/.bashrc
+    source ~/.bashrc
 }
 
 install_ros() {
