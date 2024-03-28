@@ -12,7 +12,7 @@ install_gum() {
 install_dep() {
     if [[ -z $(which curl) ]]; then 
         echo "Installing curl..."
-        $gum_spin "$title" -- sudo apt-get install curl -y >> log/install.log
+        sudo apt-get install curl -y >> log/install.log
     fi
     if [[ -z $(which gum) ]]; then
         echo "Installing gum..."
