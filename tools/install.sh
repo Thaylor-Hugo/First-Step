@@ -10,8 +10,10 @@ done
 # First argument is the list of packages
 install_packages() {
     local packages=("$@")
-    sudo apt-get update >> log/install.log
-    sudo apt-get upgrade -y >> log/install.log
+    gum spin --spinner line --title "Updating system" -- sudo apt-get update >> log/install.log
+    echo "System updated!"
+    gum spin --spinner line --title "Upgrading system" -- sudo apt-get upgrade -y >> log/install.log
+    echo -e "System upgraded! \n"
     
     # Flags for the fish shell
     cmake_on=0

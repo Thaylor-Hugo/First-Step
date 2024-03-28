@@ -118,13 +118,16 @@ main() {
     install_packages "${choices[@]}"
 
     # Update and upgrade the system
-    sudo apt-get update >> log/install.log
-    sudo apt-get upgrade -y >> log/install.log
+    echo "Finishing..."
+    gum spin --spinner line --title "Updating system" -- sudo apt-get update >> log/install.log
+    echo "System updated!"
+    gum spin --spinner line --title "Upgrading system" -- sudo apt-get upgrade -y >> log/install.log
+    echo "System upgraded!"
 
-    echo "Installation Done! Please reboot to finish configuration"
-    read -p "Reboot now? (y) or (n)..."
+    echo -e "\nInstallation Done! Please reboot to finish configuration"
+    read -p "Reboot now? (y) or (n): "
     if [ $REPLY = "y" ]; then
-        reboot
+        sudo reboot
     fi
     exit 0
 }
