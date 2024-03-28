@@ -63,7 +63,7 @@ install_packages() {
                 "GCC - GNU Compiler Collection")
                     $gum_spin "$title" -- sudo apt-get install gcc -y >> log/install.log ;;
                 "Charge Rules - Auto change power profile")
-                    $gum_spin "$title" -- sudo mv rules/* /etc/udev/rules.d/ 
+                    $gum_spin "$title" -- sudo cp rules/* /etc/udev/rules.d/ 
                     $gum_spin "$title" -- sudo udevadm control --reload-rules
                     $gum_spin "$title" -- sudo udevadm trigger ;;
             esac
