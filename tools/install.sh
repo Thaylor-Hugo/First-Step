@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Source the files
-source_files=("tools/git_install.sh" "tools/ros_install.sh" "tools/stm_install.sh" "tools/fish_install.sh")
+source_files=(  "tools/installs_functions/git_install.sh" "tools/installs_functions/ros_install.sh" \
+                "tools/installs_functions/stm_install.sh" "tools/installs_functions/fish_install.sh")
 for file in "${source_files[@]}"; do
     source $file
 done
