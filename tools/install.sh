@@ -17,9 +17,6 @@ install_packages() {
     echo -e "System upgraded! \n"
     
     # Flags for the fish shell
-    cmake_on=0
-    ros2_on=0
-    stm32_on=0
     fish_on=0
 
     for package in "${packages[@]}"; do
@@ -30,7 +27,6 @@ install_packages() {
                 "Make - Build tool")
                     $gum_spin "$title" -- sudo apt-get install make -y >> log/install.log ;;
                 "CMake - Build system generator")
-                    cmake_on=1
                     $gum_spin "$title" -- sudo apt-get install cmake -y >> log/install.log ;; 
                 "VSCode - Feature-rich code editor")
                     $gum_spin "$title" -- sudo snap install --classic code >> log/install.log ;;
@@ -47,10 +43,8 @@ install_packages() {
                 "Git - Version control system") 
                     install_git ;;
                 "ROS2 - Robotics framework")
-                    ros2_on=1
                     install_ros ;;
                 "STM32Cube - CubeProgrammer, CubeMX and CubeMonitor")
-                    stm32_on=1
                     install_cube ;;
                 "ARM-GCC - Compiler for ARM processors") 
                     $gum_spin "$title" -- sudo apt-get install gcc-arm-none-eabi -y >> log/install.log ;;
@@ -71,7 +65,7 @@ install_packages() {
     done
     source ~/.bashrc
     if [ $fish_on -eq 1 ]; then
-        install_fish $cmake_on $ros2_on $stm32_on
+        install_fish
         source ~/.config/fish/config.fish
     fi
 }
