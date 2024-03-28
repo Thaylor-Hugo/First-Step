@@ -16,9 +16,6 @@ install_packages() {
     gum spin --spinner line --title "Upgrading system" -- sudo apt-get upgrade -y >> log/install.log
     echo -e "System upgraded! \n"
     
-    # Flags for the fish shell
-    fish_on=0
-
     for package in "${packages[@]}"; do
         # What a shame I can't use the gum spin with custom functions here
         local title="Installing '$package'..."
@@ -53,7 +50,8 @@ install_packages() {
                     $gum_spin "$title" -- sudo dpkg -i ./JLink_Linux_x86_64.deb >> log/install.log
                     $gum_spin "$title" -- sudo rm JLink_Linux_x86_64.deb ;;
                 "Fish - Interactive shell")
-                    fish_on=1 ;;
+                    install_fish
+                    source ~/.config/fish/config.fish ;;
                 "GCC - GNU Compiler Collection")
                     $gum_spin "$title" -- sudo apt-get install gcc -y >> log/install.log ;;
                 "Charge Rules - Auto change power profile")
@@ -64,8 +62,4 @@ install_packages() {
         echo -e "$package installed! \n" 
     done
     source ~/.bashrc
-    if [ $fish_on -eq 1 ]; then
-        install_fish
-        source ~/.config/fish/config.fish
-    fi
 }
