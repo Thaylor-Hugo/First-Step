@@ -21,15 +21,23 @@ install_gum() {
 
 # Function to install the dependencies
 install_dep() {
-    echo "Installing gum..."
-    install_gum >> log/install.log
+    if [[ -z $(which gum) ]]; then
+        echo "Installing gum..."
+        install_gum >> log/install.log
+    fi
 
     local title="Installing the dependencies..."
     local gum_spin='gum spin --spinner line --title'
-        
-    $gum_spin "$title" -- sudo apt-get install xclip -y >> log/install.log
-    $gum_spin "$title" -- sudo apt-get install curl -y >> log/install.log
-    $gum_spin "$title" -- sudo apt-get install unzip -y >> log/install.log
+    
+    if [[ -z $(which xclip) ]]; then 
+        $gum_spin "$title" -- sudo apt-get install xclip -y >> log/install.log
+    fi
+    if [[ -z $(which curl) ]]; then 
+        $gum_spin "$title" -- sudo apt-get install curl -y >> log/install.log
+    fi
+    if [[ -z $(which unzip) ]]; then 
+        $gum_spin "$title" -- sudo apt-get install unzip -y >> log/install.log
+    fi
 
     echo "Dependencies installed!"
 }
