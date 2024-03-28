@@ -50,8 +50,7 @@ install_packages() {
                     $gum_spin "$title" -- sudo dpkg -i ./JLink_Linux_x86_64.deb >> log/install.log
                     $gum_spin "$title" -- sudo rm JLink_Linux_x86_64.deb ;;
                 "Fish - Interactive shell")
-                    install_fish
-                    source ~/.config/fish/config.fish ;;
+                    install_fish ;;
                 "GCC - GNU Compiler Collection")
                     $gum_spin "$title" -- sudo apt-get install gcc -y >> log/install.log ;;
                 "Charge Rules - Auto change power profile")
