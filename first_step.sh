@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#TODO: Can probably use the a global variable for gum spin 
+
 # Check if the user is root
 if [ `whoami` == 'root' ]; then
     echo "Please re-run without sudo command."
