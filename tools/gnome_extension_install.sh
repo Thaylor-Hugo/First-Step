@@ -1,6 +1,7 @@
 #!/bin/bash
 
-array=( https://extensions.gnome.org/extension/3193/blur-my-shell/
+array=( https://extensions.gnome.org/extension/5724/battery-health-charging/
+https://extensions.gnome.org/extension/3193/blur-my-shell/
 https://extensions.gnome.org/extension/517/caffeine/
 https://extensions.gnome.org/extension/779/clipboard-indicator/
 https://extensions.gnome.org/extension/307/dash-to-dock/
@@ -9,15 +10,11 @@ https://extensions.gnome.org/extension/4158/gnome-40-ui-improvements/
 https://extensions.gnome.org/extension/1319/gsconnect/
 https://extensions.gnome.org/extension/277/impatience/
 https://extensions.gnome.org/extension/3724/net-speed-simplified/
-https://extensions.gnome.org/extension/5446/quick-settings-tweaker/
 https://extensions.gnome.org/extension/905/refresh-wifi-connections/
 https://extensions.gnome.org/extension/906/sound-output-device-chooser/
 https://extensions.gnome.org/extension/19/user-themes/
 https://extensions.gnome.org/extension/1460/vitals/ 
 https://extensions.gnome.org/extension/1723/wintile-windows-10-window-tiling-for-gnome/ )
-# desktop-icons ng
-# ubuntu appindicators
-# ubuntu dock
 
 sudo apt-get install jq -y
 
