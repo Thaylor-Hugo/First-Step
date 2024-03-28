@@ -21,10 +21,17 @@ install_gum() {
 
 # Function to install the dependencies
 install_dep() {
-    sudo apt-get install xclip -y >> log/install.log
-    sudo apt-get install curl -y >> log/install.log
-    sudo apt-get install unzip -y >> log/install.log
+    echo "Installing gum..."
     install_gum >> log/install.log
+
+    local title="Installing the dependencies..."
+    local gum_spin='gum spin --spinner line --title'
+        
+    $gum_spin "$title" -- sudo apt-get install xclip -y >> log/install.log
+    $gum_spin "$title" -- sudo apt-get install curl -y >> log/install.log
+    $gum_spin "$title" -- sudo apt-get install unzip -y >> log/install.log
+
+    echo "Dependencies installed!"
 }
 
 # Define the checklist items
@@ -91,7 +98,6 @@ create_log() {
 # Main script
 main() {
     create_log
-    echo "Installing the dependencies..."
     install_dep
 
     display_checklist
