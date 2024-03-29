@@ -1,96 +1,122 @@
 #!/bin/bash
 
+#TODO: Can probably use the a global variable for gum spin 
+
 # Check if the user is root
 if [ `whoami` == 'root' ]; then
     echo "Please re-run without sudo command."
     exit 1
 fi
 
-# Print with root for the user to enter the password only once
-sudo echo "Initiating Install and Config"
+# Clear with root for the user to enter the password only once
+sudo clear
+echo "Initiating Install and Config"
 
 # Source the install file
 source tools/install.sh
-
-# Function to install the dependencies
-install_dep() {
-    sudo apt-get install xclip -y >> log/install.log
-    sudo apt-get install curl -y >> log/install.log
-    sudo apt-get install dialog -y >> log/install.log
-    sudo apt-get install unzip -y >> log/install.log
-}
+source tools/utils.sh
+source tools/gnome_extension_install.sh
 
 # Define the checklist items
-programing_list=(   "Git" "Version control system" "off" \
-                    "Fish" "Interactive shell" "off" \
-                    "GCC" "GNU Compiler Collection" "off" \
-                    "Make" "Build tool" "off" \
-                    "CMake" "Build system generator" "off" \
-                    "VSCode" "Feature-rich code editor" "off" \
-                    "ROS2" "Robotics framework" "off" \
-                    "JLink" "JLink tools" "off" \
-                    "STM32Cube" "CubeProgrammer, CubeMX and CubeMonitor" "off"
-                    "ARM-GCC" "Compiler for ARM processors." "off")
+programing_list=(   "Git - Version control system" \
+                    "Fish - Interactive shell" \
+                    "GCC - GNU Compiler Collection" \
+                    "Make - Build tool" \
+                    "CMake - Build system generator" \
+                    "VSCode - Feature-rich code editor" \
+                    "ROS2 - Robotics framework" \
+                    "JLink - JLink tools" \
+                    "STM32Cube - CubeProgrammer, CubeMX and CubeMonitor" \
+                    "ARM-GCC - Compiler for ARM processors")
 
-useful_list=(   "Discord" "Communication platform" "off" \
-                "VLC" "Media player" "off" \
-                "CopyQ" "Clipboard manager" "off" \
-                "Baobab" "Disk usage analiser" "off")
+useful_list=(   "Discord - Communication platform" \
+                "VLC - Media player" \
+                "CopyQ - Clipboard manager" \
+                "Baobab - Disk usage analiser" \
+                "Charge Rules - Auto change power profile")
+
+extensions_list=(   "Battery Health Charging - Battery health and charging information" \
+                    "Blur My Shell - Blur the shell background and lock screen" \
+                    "Caffeine - Prevent the activation of the screensaver" \
+                    "Clipboard Indicator - Clipboard manager" \
+                    "Dash to Dock - Move the dash out of the overview transforming it in a dock" \
+                    "Extension List - Manage GNOME Shell extensions" \
+                    "GNOME 40 UI Improvements - GNOME 40 UI Improvements" \
+                    "GSConnect - KDE Connect implementation for GNOME" \
+                    "Impatience - Speed up the GNOME Shell animations" \
+                    "Net Speed Simplified - Display the network speed" \
+                    "Order Gnome Shell Extensions - Order Gnome Shell Extensions" \
+                    "Refresh WiFi Connections - Refresh WiFi Connections" \
+                    "Sound Output Device Chooser - Sound Output Device Chooser" \
+                    "User Themes - User Themes" \
+                    "Vitals - System monitoring" \
+                    "WinTile - Windows 10 window tiling for GNOME")
 
 # Function to display the checklist
-# First argument is the title
-# Second argument is the list of items
 display_checklist() {
-    local title=$1
-    shift
-    local items=("$@")
-    dialog --clear --checklist "$title" 0 0 ${#items[@]} "${items[@]}" 2>&1 >/dev/tty
-}
+    # Display the checklist for programming items
+    clear
+    gum style \
+        --foreground 212 --border-foreground 212 --border double \
+        --align center --width 50 --margin "1 2" --padding "2 4" \
+        "Install and Configure Programming Items" 'Choose the items you would like!'
+    local selected_programing_items=$(gum choose --no-limit "${programing_list[@]}")
+    check_cancel
 
-# Function to check if the user canceled the operation
-check_cancel() {
-    if [ $? -eq 1 ] || [ $? -eq 255 ]; then
-        clear
-        echo "Exiting..."
-        exit 0
-    fi
-}
+    # Display the checklist for useful items
+    clear    
+    gum style \
+        --foreground 212 --border-foreground 212 --border double \
+        --align center --width 50 --margin "1 2" --padding "2 4" \
+        "Install and Configure Useful Items" 'Choose the items you would like!'
+    local selected_useful_items=$(gum choose --no-limit "${useful_list[@]}")
+    check_cancel
 
-# Create the log directory and file
-create_log() {
-    mkdir -p log
-    touch log/install.log
-    echo "" > log/install.log
+    # Display the checklist for gnome extensions
+    clear
+    gum style \
+        --foreground 212 --border-foreground 212 --border double \
+        --align center --width 50 --margin "1 2" --padding "2 4" \
+        "Install and Configure Gnome Extensions" 'Choose the items you would like!'
+    selected_extensions=$(gum choose --no-limit "${extensions_list[@]}")
+
+    # Separate the selected items
+    local IFS=$'\n'
+    selected_programing_items=($selected_programing_items)
+    selected_useful_items=($selected_useful_items)
+    selected_extensions=($selected_extensions)
+
+    # Combine the selected items
+    choices=("${selected_programing_items[@]}" "${selected_useful_items[@]}")
 }
 
 # Main script
 main() {
     create_log
-    echo "Installing the dependencies..."
     install_dep
 
-    selected_programing_items=$(display_checklist "Install and Configure Programming Items" "${programing_list[@]}")
-    check_cancel
-    selected_useful_items=$(display_checklist "Install and Configure Useful Items" "${useful_list[@]}")
-    check_cancel
-
-    all_selected_items=($selected_programing_items $selected_useful_items)
+    display_checklist
 
     clear
     echo "Installing and configuring the selected items..."
     echo -e "This may take a while... \n"
 
     # Install the selected items
-    install_packages "${all_selected_items[@]}"
+    install_packages "${choices[@]}"
 
-    # Update and upgrade the system
-    sudo apt-get update >> log/install.log
-    sudo apt-get upgrade -y >> log/install.log
+    # Install gnome extensions
+    install_gnome_extensions "${selected_extensions[@]}"
+    
+    echo "Finishing..."
+    gum spin --spinner line --title "Updating system" -- sudo apt-get update >> log/install.log
+    echo "System updated!"
+    gum spin --spinner line --title "Upgrading system" -- sudo apt-get upgrade -y >> log/install.log
+    echo "System upgraded!"
 
-    echo "Installation Done! Please reboot to finish configuration"
-    read -p "Reboot now? (y) or (n)..."
+    echo -e "\nInstallation Done! Please reboot to finish configuration"
+    read -p "Reboot now? (y) or (n): "
     if [ $REPLY = "y" ]; then
-        reboot
+        sudo reboot
     fi
     exit 0
 }
