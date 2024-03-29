@@ -54,5 +54,5 @@ Please download the STM softwares (CubeMX, CubeProgrammer and CubeMonitor) and p
 ## How to Use
 Just run the top level script "first_step.sh" on the project root directory
 ```bash
-./first_setp.sh
+./first_step.sh
 ```
