@@ -78,7 +78,7 @@ display_checklist() {
         --foreground 212 --border-foreground 212 --border double \
         --align center --width 50 --margin "1 2" --padding "2 4" \
         "Install and Configure Gnome Extensions" 'Choose the items you would like!'
-    local selected_extensions=$(gum choose --no-limit "${extensions_list[@]}")
+    selected_extensions=$(gum choose --no-limit "${extensions_list[@]}")
 
     # Separate the selected items
     local IFS=$'\n'

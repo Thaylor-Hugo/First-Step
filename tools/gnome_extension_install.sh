@@ -1,11 +1,9 @@
 #!/bin/bash
 
-EXTENSION_URL=""
-
 # Function to set the extension URL
 # First argument is the extension name
 set_extension_url() {
-    case $1 in
+    case "$@" in
         "Battery Health Charging - Battery health and charging information")
             EXTENSION_URL="https://extensions.gnome.org/extension/5724/battery-health-charging/" ;;
         "Blur My Shell - Blur the shell background and lock screen")
